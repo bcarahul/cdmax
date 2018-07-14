@@ -1,4 +1,7 @@
 <?php include('layouts/header.php');?>
+<style>
+  td{cursor: pointer;}
+</style>
     <main class="app-content">
       <div class="app-title">
         <div>
@@ -21,6 +24,7 @@
                     <th>SrNo</th>
                     <th>Manufacturer</th>
                     <th>Modal</th>
+                    <th>Registration Number</th>
                     <th>Count</th>
                     <th>Action</th>
                   </tr>
@@ -37,6 +41,7 @@
                         <td onclick="viewModalDetails(<?php echo $modal['id']; ?>)"><?php echo '#'.$count; ?></td>
                         <td onclick="viewModalDetails(<?php echo $modal['id']; ?>)"><?php echo $modal['name']; ?></td>
                         <td onclick="viewModalDetails(<?php echo $modal['id']; ?>)"><?php echo $modal['modal_name']; ?></td>
+                        <td onclick="viewModalDetails(<?php echo $modal['id']; ?>)"><?php echo $modal['registration_number']; ?></td>
                         <td onclick="viewModalDetails(<?php echo $modal['id']; ?>)"><?php echo $modal['modal_count']; ?></td>
                         <td><a href="javascript:void(0);" class="btn btn-danger" onclick="removeSoldCar('<?php echo $modal['modal_name']; ?>')"><i class="fa fa-trash"></i>Sold</a></td>
                     </tr>
@@ -133,15 +138,6 @@
 $(document).ready(function (e) {
  $("#soldForm").on('submit',(function(e) {
   e.preventDefault();
-        // $.ajax({
-        //   type: 'POST',
-        //   url: 'modal-action.php',
-        //   data:  new FormData(this),
-        //   success:function(html){
-        //     location.reload();
-        //   }
-        // });
-
         $.ajax({
         type: 'POST',
         url: 'modal-action.php',
@@ -155,11 +151,27 @@ $(document).ready(function (e) {
           $("#err").fadeOut();
         }, 
         success:function(msg){
+           $('#soveoldCarModal').modal('hide');
             if(msg == 'ok'){
-                alert('Deleted successfully.');
-                location.reload();
+                $.notify({
+                  title: "Success : ",
+                  message: "Modal has been removed successfully!",
+                  icon: 'fa fa-check' 
+                },{
+                  type: "success"
+                });
+                setTimeout(function(){  location.reload();
+                 }, 1500);
             }else{
-                alert('Some problem occurred, please try again.');
+                 $.notify({
+                  title: "Failed : ",
+                  message: "Entered registration number is not exist!",
+                  icon: 'fa fa-times' 
+                },{
+                  type: "danger"
+                });
+                 setTimeout(function(){  location.reload();
+                 }, 1500);
             }
         }
     });

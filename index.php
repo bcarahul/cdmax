@@ -5,11 +5,6 @@
           <h1><i class="fa fa-edit"></i> Manufacturer</h1>
           <p>Add new manufacturer</p>
         </div>
-        <!-- <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item">Forms</li>
-          <li class="breadcrumb-item"><a href="#">Sample Forms</a></li>
-        </ul> -->
       </div>
       <div class="row">
         <div class="clearix"></div>
@@ -32,6 +27,7 @@
         </div>
       </div>
       <div class="clearfix"></div>
+      <div class="row">
         <div class="col-md-12">
           <div class="tile">
             <h3 class="tile-title">Manufacturers List</h3>
@@ -69,19 +65,20 @@
           </div>
         </div>
       </div>
+    </div>
     </main>
   <?php include('layouts/footer.php');?>
   <script>
-function getManufacturer(){
-    $.ajax({
-        type: 'POST',
-        url: 'manufacturer-action.php',
-        data: 'action_type=view&'+$("#userForm").serialize(),
-        success:function(html){
-            $('#userData').html(html);
-        }
-    });
-}
+  function getManufacturer(){
+      $.ajax({
+          type: 'POST',
+          url: 'manufacturer-action.php',
+          data: 'action_type=view',
+          success:function(html){
+              $('#userData').html(html);
+          }
+      });
+  }
 
 $(document).ready(function (e) {
  $("#addForm").on('submit',(function(e) {
@@ -95,24 +92,67 @@ $(document).ready(function (e) {
         processData:false,
         beforeSend : function()
         {
-          //$("#preview").fadeOut();
-          $("#err").fadeOut();
+          //$("#err").fadeOut();
         }, 
         success:function(msg){
             if(msg == 'ok'){
-                alert('Manufacturer has been added successfully.');
                 getManufacturer();
                 $('#addForm')[0].reset();
-                //("myForm").reset();
-                // $('.formData').slideUp();
+                $.notify({
+                  title: "Success : ",
+                  message: "Manufacturer has been added successfully!",
+                  icon: 'fa fa-check' 
+                },{
+                  type: "success"
+                });
+                
             }else{
-                alert('Some problem occurred, please try again.');
+                
+                $.notify({
+                  title: "Failed : ",
+                  message: "Some problem occurred, please try again!",
+                  icon: 'fa fa-times' 
+                },{
+                  type: "danger"
+                });
             }
         }
     });
 }));
  });
-
+function deleteData(id,url){
+        $.ajax({
+          type: 'POST',
+          url: url+'.php',
+          data: 'action_type=delete&id='+id,
+          success:function(html){
+            if(html=='ok'){
+              getManufacturer();
+              $.notify({
+                  title: "Success : ",
+                  message: "Data has been deleted successfully!",
+                  icon: 'fa fa-check' 
+                },{
+                  type: "success"
+                });
+              //setTimeout(function(){  location.reload(); }, 3000);
+              
+            }
+            else{
+                getManufacturer();
+                 $.notify({
+                  title: "Failed : ",
+                  message: "Something went wrong!",
+                  icon: 'fa fa-times' 
+                },{
+                  type: "danger"
+                });
+                //setTimeout(function(){  location.reload(); }, 3000);
+            }
+          }
+        });
+        
+      }
 </script>
 
     

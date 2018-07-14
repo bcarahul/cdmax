@@ -118,8 +118,19 @@ class DB{
 			}
 		}
 		$query = "DELETE FROM ".$table.$whereSql;
-		$delete = $this->db->query($query);
-		return $delete?true:false;
+
+		$checkQuery="select * FROM ".$table.$whereSql;
+
+		$result = $this->db->query($checkQuery);
+
+			if($result->num_rows > 0){
+				$delete = $this->db->query($query);
+				return $delete?true:false;
+			}else{
+				return $delete?true:false;
+			}
+
+		
 	}
 
 	/*
@@ -128,12 +139,15 @@ class DB{
 	 * @param array select, where, order_by, limit and return_type conditions
 	 */
 	public function getDetails($id){
-		$sql="select md.id,md.manufacturer_id,md.modal_name,md.manufacturing_year,md.registration_number,md.note,md.color,md.pic1,md.pic2,md.created_at,m.name,(select count(*) from modal_details where manufacturer_id=m.id group by modal_name) as modal_count from modal_details md,manufacturers m where m.id=md.manufacturer_id";
+		// $sql="select md.id,md.manufacturer_id,md.modal_name,md.manufacturing_year,md.registration_number,md.note,md.color,md.pic1,md.pic2,md.created_at,m.name,(select count(*) from modal_details where manufacturer_id=m.id group by modal_name) as modal_count from modal_details md,manufacturers m where m.id=md.manufacturer_id";
 		
+		$sql="select md.id,md.manufacturer_id,md.modal_name,md.manufacturing_year,md.registration_number,md.note,md.color,md.pic1,md.pic2,md.created_at,m.name,count(*) as modal_count from modal_details md,manufacturers m where m.id=md.manufacturer_id";
+		//echo $sql;
+
 		if(!empty($id)){
 			$sql.=' AND md.id='.$id;
 		}
-		$sql.='  GROUP by modal_name';
+		$sql.='   GROUP BY md.modal_name,md.manufacturer_id';
 		 $result = $this->db->query($sql);
 	
 			if($result->num_rows > 0){

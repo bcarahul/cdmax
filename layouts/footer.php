@@ -10,6 +10,9 @@
     <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
+    <script type="text/javascript" src="js/plugins/bootstrap-notify.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap-notify.min.js"></script>
+    
     <!-- Google analytics script-->
     <script type="text/javascript">
       $(document).ready(function () {
@@ -21,19 +24,7 @@
             }
         });
 
-    });
-
-      function deleteData(id,url){
-        $.ajax({
-          type: 'POST',
-          url: url+'.php',
-          data: 'action_type=delete&id='+id,
-          success:function(html){
-            location.reload();
-          }
-        });
-        
-      }
+      });
     </script>
   </body>
 </html>

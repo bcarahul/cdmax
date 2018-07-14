@@ -32,18 +32,19 @@ if(isset($_POST['action_type']) && !empty($_POST['action_type'])){
                       <input class="form-control" id="registration_number_id" type="text" value="'.$user['registration_number'].'" readonly>
                     </div>
                     <div class="form-group col-md-6">
-                      <label class="control-label">Pic1</label>
-                      <input class="form-control" id="pic1_id" type="text" value="'.$user['pic1'].'" readonly>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label class="control-label">Pic2</label>
-                      <input class="form-control" id="pic2_id" type="text" value="'.$user['pic2'].'" readonly>
-                    </div>
-                    
-                    <div class="form-group col-md-6">
                       <label class="control-label">Created Date</label>
                       <input class="form-control" id="created_at_id" type="text" value="'.$user['created_at'].'" readonly>
                     </div>
+                    <div class="form-group col-md-6">
+                      <label class="control-label">Pic1</label>
+                      <img src="'.$user['pic1'].'" class="img-responsive">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="control-label">Pic2</label>
+                      <img src="'.$user['pic2'].'" class="img-responsive">
+                    </div>
+                    
+                    
                     <div class="form-group col-md-12">
                       <label class="control-label">Note</label>
                       <textarea class="form-control" id="note_id" type="text" readonly> '.$user['note'].'</textarea>

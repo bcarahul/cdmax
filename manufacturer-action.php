@@ -7,11 +7,11 @@ if(isset($_POST['action_type']) && !empty($_POST['action_type'])){
     if($_POST['action_type'] == 'data'){
         $conditions['where'] = array('id'=>$_POST['id']);
         $conditions['return_type'] = 'single';
-        $user = $db->getRows($tblName,$conditions);
-        echo json_encode($user);
+        $manufacturer = $db->getRows($tblName,$conditions);
+        echo json_encode($manufacturer);
     }elseif($_POST['action_type'] == 'view'){
         $manufacturers = $db->getRows($tblName,array('order_by'=>'id DESC'));
-        if(!empty($users)){
+        if(!empty($manufacturers)){
             $count = 0;
             foreach($manufacturers as $manufacturer): $count++;
                 echo '<tr>';

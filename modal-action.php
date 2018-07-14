@@ -37,11 +37,11 @@ if(isset($_POST['action_type']) && !empty($_POST['action_type'])){
                     </div>
                     <div class="form-group col-md-6">
                       <label class="control-label">Pic1</label>
-                      <img src="'.$user['pic1'].'" class="img-responsive">
+                      <img src="'.$user['pic1'].'" class="img-responsive"  height="100" width="100">
                     </div>
                     <div class="form-group col-md-6">
                       <label class="control-label">Pic2</label>
-                      <img src="'.$user['pic2'].'" class="img-responsive">
+                      <img src="'.$user['pic2'].'" class="img-responsive" height="100" width="100">
                     </div>
                     
                     

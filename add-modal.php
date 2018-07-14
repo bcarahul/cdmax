@@ -80,7 +80,7 @@
       </div>
     </main>
   <?php include('layouts/footer.php');?>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
   <script>
   
 $(document).ready(function (e) {
@@ -96,11 +96,28 @@ $(document).ready(function (e) {
         beforeSend : function()
         {
             
-          $("#err").fadeOut();
+          //$("#err").fadeOut();
         }, 
         success:function(html){
-           alert('Modal data has been added successfully.');
-           $('#addForm')[0].reset();
+          $('#addForm')[0].reset();
+            if(html == 'ok'){
+                $.notify({
+                  title: "Success : ",
+                  message: "Modal has been added successfully!",
+                  icon: 'fa fa-check' 
+                },{
+                  type: "success"
+                });
+            }else{
+               $.notify({
+                  title: "Failed : ",
+                  message: "Some problem occurred, please try again!",
+                  icon: 'fa fa-times' 
+                },{
+                  type: "danger"
+                });
+              $('#addForm')[0].reset();
+            }
         }
     });
   }));
